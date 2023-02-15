@@ -1,23 +1,18 @@
 import sys
-rl = sys.stdin.readline
-def solution(arr):
-  n = len(arr)
-  if n < 3: return n
+from heapq import heappush, heappop, heapify
+
+def solution(l, arr):
   answer = 0
-  dic = {}
-  for a in arr: dic[a[0]] = a
-  min = int(1e9)
-  for i in range(1, n+1):
-    item = dic[i][1]
-    dic[i] = (dic[i], min)
-    if item < min: 
-      answer += 1
-      min = item
+  if l <= 2: return answer if l == 1 else sum(arr)
+  heapify(arr)
+  while len(arr) > 1:
+    s = heappop(arr)+heappop(arr)
+    answer += s
+    heappush(arr, s)
   return answer
+
+rl = sys.stdin.readline
 n = int(rl())
-arr = []
-for _ in ' '*n:
-  arr.append([list(map(int, rl().split())) for i in range(int(rl()))])
-for i in range(n):
-  answer = solution(arr[i])
-  print(answer)
+arr = [int(rl()) for _ in range(n)]
+answer = solution(n, arr)
+print(answer)
