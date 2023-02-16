@@ -1,0 +1,24 @@
+import sys
+
+def solution(n, min_package, min_unit):
+  answer = 0
+  a = n//6
+  b = n%6
+  price = min(min_package, min_unit*6)
+  answer += price*a
+  print(price, a, answer)
+  price = min(min_package, min_unit*b)
+  answer += price
+  print(price, b, answer)
+  return answer
+
+rl = sys.stdin.readline
+n, m = map(int, rl().split())
+min_package = int(1e3)+1
+min_unit = int(1e3)+1
+for _ in range(m):
+  a, b = map(int, rl().split())
+  if a < min_package: min_package = a
+  if b < min_unit: min_unit = b
+answer = solution(n, min_package, min_unit)
+print(answer)
