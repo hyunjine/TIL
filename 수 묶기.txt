@@ -1,0 +1,36 @@
+import sys
+from heapq import heappush, heappop
+def solution(arr_p, arr_m, arr_0):
+  answer = 0
+  while arr_p:
+    x = -heappop(arr_p)
+    if arr_p:
+      y = -heappop(arr_p)
+      answer += max(x*y, x+y)
+    else:
+      answer += x
+  last = 0
+  while arr_m:
+    x = heappop(arr_m)
+    if arr_m:
+      y = heappop(arr_m)
+      answer += x*y
+    else:
+      last = x
+  if arr_0 > 0: answer += last*0
+  else: answer += last
+  return answer
+
+rl = sys.stdin.readline
+n = int(rl())
+arr_p = []
+arr_m = []
+arr_0 = 0
+for _ in range(n):
+  x = int(rl())
+  if x > 0: heappush(arr_p, -x)
+  elif x < 0: heappush(arr_m, x)
+  else: arr_0 += 1
+
+answer = solution(arr_p, arr_m, arr_0)
+print(answer)
