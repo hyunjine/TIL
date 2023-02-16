@@ -1,0 +1,25 @@
+import sys
+
+def solution(x, arr):
+  answer = 0
+  priority = [0,1,2,3,4,5,6,7,8,9]
+  dic = {}
+  for a in range(x):
+    l = len(arr[a])
+    for b in range(l):
+      alph = arr[a][-(b+1)] 
+      if dic.get(alph) == None:
+        dic[alph] = 10**b
+      else:
+        dic[alph] += 10**b
+  dic = dict(sorted(dic.items(), key=lambda x: x[1], reverse=True))
+  for d in dic:
+    dic[d] *= priority.pop()
+  answer = sum(dic.values())    
+  return answer
+
+rl = sys.stdin.readline
+n = int(rl())
+arr = [list(rl().rstrip()) for _ in ' '*n]
+answer = solution(n, arr)
+print(answer)
