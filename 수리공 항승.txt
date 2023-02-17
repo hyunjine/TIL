@@ -1,0 +1,18 @@
+import sys
+
+def solution(n, l, arr):
+  answer = 0
+  arr.sort()
+  i = 0
+  while i < n:
+    answer += 1
+    temp = l + (arr[i]-0.5)
+    while i < n and temp > arr[i]:
+      i += 1
+  return answer
+  
+rl = sys.stdin.readline
+n, l = map(int, rl().split())
+arr = list(map(int, rl().split()))
+answer = solution(n, l, arr)
+print(answer)
