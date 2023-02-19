@@ -1,16 +1,25 @@
 import sys
-def solution(n, r):
+
+def solution(name, error):
   answer = ''
-  for i in r:
-    a = [n//i, n%i]
-    answer += "%d " %a[0]
-    n = a[1]
+  center = ''  
+  while name:
+    s1 = name.pop()
+    s2 = ''
+    if name: s2 = name.pop()
+    if s1 != s2:
+      if center: return error
+      center = s1
+      name.append(s2)
+      continue
+    else:
+      answer += s1
+  answer = ''.join(reversed(answer)) + center + answer
   return answer
 
+
 rl = sys.stdin.readline
-n = int(rl())
-arr = [int(rl()) for _ in ' '*n]
-r = [25,10,5,1]
-for a in arr:
-  answer = solution(a, r)
-  print(answer)
+name = sorted(list(rl().rstrip()))
+error = "I'm Sorry Hansoo"
+answer = solution(name, error)
+print(answer)
