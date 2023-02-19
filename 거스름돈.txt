@@ -1,9 +1,0 @@
-n=int(input())
-a,b=0,-1
-for i in range(int(n/2)+1):
-  if n%2==0:b=i
-  t=n-(2*i)
-  if t%5==0:
-    a=int(t/5);b=i
-    break
-print(a+b)
