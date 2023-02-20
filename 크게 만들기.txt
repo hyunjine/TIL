@@ -1,0 +1,27 @@
+import sys
+from collections import deque 
+
+def solution(n, k, num):
+  queue = deque()
+  queue.append(num[0])
+  for i in range(1, n):
+    while queue and k > 0:
+      if num[i] > queue[-1]:
+        queue.pop()
+        k -= 1
+      else: 
+        break
+    queue.append(num[i])
+    
+  for i in range(k):
+    queue.pop()
+  answer = ''
+  while queue: answer += str(queue.popleft())
+  return answer
+
+rl = sys.stdin.readline
+
+n,k = map(int, rl().split())
+num = list(map(int, rl().rstrip()))
+answer = solution(n, k, num)
+print(answer)
