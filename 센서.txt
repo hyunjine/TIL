@@ -1,0 +1,23 @@
+import sys
+from heapq import heappush, heappop
+
+def solution(r, c, arr):
+  device = 1
+  heap = []
+  for i in range(r-1):
+    a = arr[i]
+    b = arr[i+1]
+    heappush(heap, a-b)
+  while device < c:
+    if not heap:break
+    heappop(heap)
+    device += 1
+  return -sum(heap)
+
+rl = sys.stdin.readline
+n = int(rl())
+k = int(rl())
+arr = sorted(list(map(int, rl().split())))
+
+answer = solution(n, k, arr)
+print(answer)
