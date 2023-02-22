@@ -1,0 +1,16 @@
+from heapq import heappush, heappop
+def solution(n, m, arr):
+  heap = []
+  for a in arr: heappush(heap, a)
+  while m > 0:
+    a = heappop(heap)
+    b = heappop(heap)
+    heappush(heap, a+b)
+    heappush(heap, a+b)
+    m -= 1
+  return sum(heap)
+
+n, m = map(int, input().split())
+arr = list(map(int, input().split()))
+answer = solution(n, m, arr)
+print(answer)
