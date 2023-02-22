@@ -1,0 +1,15 @@
+
+for s in board:
+  if s == 'X':
+    block += s
+  else:
+    l = len(block)
+    if l % 2 == 1: print(-1)
+    else:
+      a = l // 4
+      b = 0 if l % 4 == 0 else 1
+      block = 'AAAA'*a + 'BB'*b
+      answer += block
+      block = ''        
+    answer += s
+print(answer)
