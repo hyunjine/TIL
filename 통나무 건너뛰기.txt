@@ -1,0 +1,26 @@
+import sys
+from heapq import heappush, heappop
+
+def solution(N, BOX, answer):
+  max = 0
+  A = BOX[0::2]
+  B = BOX[1::2]
+  for i in range(len(A)-1):
+    t = A[i+1]-A[i]
+    if t > max: max = t
+  for i in range(len(B)-1):
+    t = B[i+1]-B[i]
+    if t > max: max = t
+  t = abs(A[-1] - B[-1])
+  if t > max: max = t
+  answer.append(max)  
+  
+rl = sys.stdin.readline
+C = int(rl())
+answer = []
+for _ in range(C):
+  N = int(rl())
+  BOX = sorted(list(map(int, rl().split())))
+  solution(N, BOX, answer)
+
+for a in answer: print(a)
