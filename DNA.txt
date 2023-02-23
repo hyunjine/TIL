@@ -1,0 +1,16 @@
+import sys
+rl = sys.stdin.readline
+n,m=map(int, rl().split())
+d=[list(rl().rstrip()) for _ in range(n)]
+q=''
+w=0
+while d[n-1]:
+  a=''
+  c=['']*(n+1)
+  for i in range(n):a+=d[i].pop()
+  for p in "ATGC":c[a.count(p)]+=p
+  while not c[-1]:c.pop()
+  q+=min(c.pop())
+  w+=n-len(c)
+print(''.join(q[::-1]))
+print(w)

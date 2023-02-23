@@ -1,5 +1,0 @@
-b=list(input())
-a=list(input())
-while len(a)>len(b):
-  if a.pop()=='B':a=a[::-1]
-print((0,1)(a==b))
