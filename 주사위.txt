@@ -1,0 +1,21 @@
+def solution(N, DICE):
+  if N == 1:
+    DICE = sorted(DICE)[:5]
+    return sum(DICE)
+  temp = sorted([min(DICE[0], DICE[5]), min(DICE[2], DICE[3]), min(DICE[1], DICE[4])])
+  first = temp[0]
+  second = temp[1]
+  third = temp[2]
+  # N-1번째 구하기
+  # 2N + (N-2)*2
+  a = (2*N + (N-2)*2)-4
+  normal = (first+second)*4 + a*first
+  top = (second+third)*4 + a*second + first*N**2
+  answer = top + normal*(N-1)
+  return answer
+  
+      
+N = int(input())
+DICE = list(map(int, input().split()))
+answer = solution(N, DICE)
+print(answer)
