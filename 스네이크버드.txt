@@ -1,4 +1,0 @@
-N,L = map(int, input().split())
-A=sorted(list(map(int, input().split())))[::-1]
-while A and A.pop()<=L:L+=1
-print(L)
