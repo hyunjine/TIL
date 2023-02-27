@@ -1,3 +1,0 @@
-코루틴
-launch = job 반환 및 호출 시 바로 실행
-async = deffered 반환 및 await 호출 시 실행

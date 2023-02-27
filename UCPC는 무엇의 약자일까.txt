@@ -1,0 +1,26 @@
+import sys
+
+def solution(S):
+  success = "I love UCPC"
+  fail = "I hate UCPC"
+  RS = S[::-1]
+  try:
+    u = S.index('U')
+    c = RS.index('C')
+    c = len(S) - c - 1
+    if u > c: return fail
+    S = S[u+1:c]
+    print(S)
+    RS = S[::-1]
+    c = S.index('C')
+    p = RS.index('P')
+    p = len(S) - p - 1
+    if c > p: return fail
+    return success
+  except:
+    return fail
+      
+rl = sys.stdin.readline
+S = list(rl().rstrip())
+answer = solution(S)
+print(answer)
