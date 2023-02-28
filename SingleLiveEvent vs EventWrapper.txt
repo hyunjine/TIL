@@ -1,0 +1,18 @@
+LiveData의 중복 이벤트 처리
+1. SingleLiveEvent
+2. EventWrapper
+
+SingleLiveEvent
+- 스레드 세이프하게 AtomicBoolean을 사용함
+- setValue, postValue를 호출하면 pending값을 true로 변경
+- observe가 호출될 때 pending값이 true일 때만 super호출
+
+단점
+여러개의 observer가 있다면 단 한곳에게만 이벤트가 송신됨
+
+EventWrapper
+- 값을 Class로 한번 더 감싸는 형태
+- LiveData에 Event<T>를 set
+- Event Class는 생성될 때 pending값이 true
+- 그 후 get함수를 통해 가져오게 되면 값을 내뱉고 pending값을 false로 변경
+- 이것도 한번의 observer에게만 이벤트가 송신되지만 나머지 observer들은 peek함수로 data에 접근가능
