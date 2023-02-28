@@ -1,0 +1,40 @@
+from collections import deque
+import copy
+N, M = map(int, input().split())
+GRAPH = [[*input().split()] for _ in' '*N]
+Q = deque()
+D = [(1,0),(-1,0),(0,1),(0,-1)]
+empty = []
+for i in range(N):
+  for j in range(M):
+    if GRAPH[i][j] == '0':
+      empty.append((i, j))
+    else:
+      if GRAPH[i][j] == '2':
+        Q.append((i, j))
+
+L = len(empty)
+max = 0
+for a in range(L-2):
+  for b in range(a+1, L-1):
+    for c in range(b+1, L):
+      l = L-3
+      graph = copy.deepcopy(GRAPH)
+      q = copy.deepcopy(Q)
+      ap = empty[a]
+      bp = empty[b]
+      cp = empty[c]
+      graph[ap[0]][ap[1]] = '1'
+      graph[bp[0]][bp[1]] = '1'
+      graph[cp[0]][cp[1]] = '1'
+      while q:
+        p = q.popleft()
+        x, y = p[0], p[1]
+        for d in D:
+          dx, dy= x + d[0], y + d[1]
+          if 0 <= dx < N and 0 <= dy < M and graph[dx][dy] == '0':
+            l -= 1
+            q.append((dx, dy))
+            graph[dx][dy] = '2'
+      if max < l: max = l
+print(max)
