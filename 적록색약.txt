@@ -1,0 +1,28 @@
+import copy
+import sys
+sys.setrecursionlimit(10**4+1)
+rl = sys.stdin.readline
+N = int(rl())
+GRAPH = [[*rl()] for _ in' '*N]
+DIS_GRAPH = copy.deepcopy(GRAPH)
+D = [(1,0),(-1,0),(0,1),(0,-1)]
+
+def dfs(graph, x, y, s):
+  if 0<=x<N and 0<=y<N and graph[x][y] != '-' and graph[x][y] in s:
+    graph[x][y] = '-'
+    for d in D:
+      dfs(graph, x+d[0], y+d[1], s)
+      
+normal_sector = 0
+disabled_sector = 0
+for x in range(N):
+  for y in range(N):
+    if GRAPH[x][y] != '-':
+      normal_sector += 1
+      dfs(GRAPH, x, y, [GRAPH[x][y]])
+      
+    if DIS_GRAPH[x][y] != '-':
+      disabled_sector += 1
+      area = [['R', 'G'], ['B']][DIS_GRAPH[x][y] in 'B']
+      dfs(DIS_GRAPH, x, y, area)
+print(normal_sector, disabled_sector,sep=" ")
