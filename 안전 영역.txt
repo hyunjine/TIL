@@ -1,0 +1,25 @@
+import copy, sys
+sys.setrecursionlimit(10**4)
+N = int(input())
+GRAPH = [list(map(int, input().split())) for _ in range(N)]
+height = 0
+for g in GRAPH:
+  m = max(g)
+  if height < m: height = m
+
+def dfs(graph, x, y, h):
+  if 0<=x<N and 0<=y<N and graph[x][y] > h:
+    graph[x][y] = 0
+    for dx,dy in [(1,0),(-1,0),(0,1),(0,-1)]:
+      dfs(graph, x+dx, y+dy, h)
+    return True
+  else:
+    return False
+cnt = [0]*height
+for h in range(height+1):
+  graph = copy.deepcopy(GRAPH)
+  for x in range(N):
+    for y in range(N):
+      if dfs(graph, x, y, h): cnt[h] += 1
+  
+print(max(cnt))
