@@ -1,0 +1,15 @@
+import sys
+rl = sys.stdin.readline
+N, M = map(int, rl().split())
+GRAPH = [[*rl()] for _ in range(N)]
+
+x,y,MAX = 0,0,0
+stack = set([(x,y,GRAPH[x][y])])
+while stack:
+  x,y,trace = stack.pop()
+  for dx,dy in [(x+1,y),(x-1,y),(x,y+1),(x,y-1)]:
+    if 0<=dx<N and 0<=dy<M and GRAPH[dx][dy] not in trace:
+      stack.add((dx, dy, trace + GRAPH[dx][dy]))
+  else:
+    MAX = max(MAX, len(trace))
+print(MAX)
