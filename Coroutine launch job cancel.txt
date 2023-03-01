@@ -1,0 +1,12 @@
+    private fun coroutine() {
+        val job = GlobalScope.launch(Dispatchers.Main) { // launch coroutine in the main thread
+            for (i in 10 downTo 1) { // countdown from 10 to 1
+                textView.text = "Countdown $i ..." // update text
+                delay(500) // wait half a second
+            }
+            textView.text = "Done!"
+        }
+        textView.setOnClickListener {
+            job.cancel() // cancel coroutine on click
+        }
+    }
