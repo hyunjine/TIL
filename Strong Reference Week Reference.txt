@@ -1,6 +1,0 @@
-Strong Reference
-일반 참조
-
-Week Reference
-대상 객체를 참조하는 경우가 WeakReferences 객체만 존재하는 경우 GC의 대상이 됩니다.
-다음 GC 실행시 무조건 힙 메모리에서 제거됩니다.
