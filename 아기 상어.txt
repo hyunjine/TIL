@@ -1,0 +1,57 @@
+from collections import deque
+N = int(input())
+GRAPH = [list(map(int, input().split())) for _ in range(N)]
+FISHES,START_X,START_Y = 0,0,0
+for x in range(N):
+  for y in range(N):
+    if GRAPH[x][y] == 0: continue
+    if GRAPH[x][y] == 9: 
+      START_X = x
+      START_Y = y
+      GRAPH[x][y] = 0
+    else: 
+      FISHES += 1
+    
+def bfs(graph, X, Y, size):
+  Q = deque([(X,Y,0)])
+  visited = [[0]*N for _ in range(N)]
+  visited[X][Y] = 1
+  rx,ry,min = 0,0,0
+  while Q:
+    x,y,dis = Q.popleft()
+    for dx,dy in [(x-1,y),(x,y-1),(x,y+1),(x+1,y)]:
+      if 0<=dx<N and 0<=dy<N and visited[dx][dy] == 0 and graph[dx][dy] <= size:
+        visited[dx][dy] = 1
+        Q.append((dx,dy,dis+1))
+        if 0<graph[dx][dy]<size:
+          if min == 0:
+            rx,ry,min = dx,dy,dis+1
+          elif min == dis + 1:
+            # 더 높거나 같을 때
+            if rx > dx:
+              rx,ry,min = dx,dy,dis+1
+            elif rx == dx and ry > dy:
+              rx,ry,min = dx,dy,dis+1
+          else:
+            return (rx,ry,min)
+  if min != 0:
+    return (rx,ry,min)
+  return False
+
+answer,size,size_count = 0,2,0
+while FISHES > 0:
+  r = bfs(GRAPH,START_X,START_Y,size)
+  if r:
+    FISHES -= 1
+    x,y,dis = r
+    GRAPH[x][y] = 0
+    START_X = x
+    START_Y = y
+    answer += dis
+    size_count += 1
+    if size == size_count:
+      size += 1
+      size_count = 0
+  else:
+    break
+print(answer)
