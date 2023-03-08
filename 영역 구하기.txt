@@ -1,0 +1,32 @@
+import sys
+sys.setrecursionlimit(100**2)
+N,M,K = map(int, input().split())
+POINTS = [list(map(int, input().split())) for _ in range(K)]
+GRAPH = [[1]*M for _ in range(N)]
+
+for point in POINTS:
+  ay,ax,by,bx = point
+  for x in range(min(N-ax, N-bx), max(N-ax, N-bx)):
+    for y in range(min(ay, by), max(ay, by)):
+      GRAPH[x][y] = 0
+
+area = 0
+def dfs(graph, x, y):
+  if 0<=x<N and 0<=y<M and graph[x][y] == 1:
+    graph[x][y] = 0
+    global area
+    area += 1
+    for dx,dy in [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]:
+      dfs(graph, dx, dy)
+    return True
+  return False
+
+answer = []
+for n in range(N):
+  for m in range(M):
+    if dfs(GRAPH, n, m):
+      answer.append(area)
+      area = 0
+print(len(answer))
+for a in sorted(answer):
+  print(a, end=' ')
