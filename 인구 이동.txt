@@ -1,0 +1,28 @@
+ from collections import deque
+N,L,R = map(int, input().split())
+GRAPH = [list(map(int, input().split())) for _ in range(N)]
+answer,point,data = 0,[],[]
+while True:
+  visited = [[0]*N for _ in range(N)]
+  flag = True
+  for x in range(N):
+    for y in range(N):
+      if visited[x][y] == 0:
+        visited[x][y] = 1
+        Q = deque([(x,y)])
+        while Q:
+          a,b = Q.popleft()  
+          point.append((a,b))
+          data.append(GRAPH[a][b])
+          for dx,dy in [(a-1,b), (a+1,b), (a,b-1), (a,b+1)]:
+            if 0<=dx<N and 0<=dy<N and visited[dx][dy] == 0 and L<=abs(GRAPH[a][b]-GRAPH[dx][dy])<=R:
+              visited[dx][dy] = 1
+              Q.append((dx,dy))
+      if len(point) > 1:
+        flag = False
+        data = int(sum(data)/len(data))
+        for n,m in point: GRAPH[n][m] = data
+      point,data = [],[]
+  if flag: break
+  answer += 1
+print(answer)
