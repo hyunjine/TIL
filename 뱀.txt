@@ -1,0 +1,51 @@
+from collections import deque
+
+N=int(input())
+graph=[[0]*N for _ in range(N)]
+K=int(input())
+for _ in range(K):
+  x,y=list(map(int, input().split()))
+  graph[x-1][y-1]=1
+L=int(input())
+change=[list(input().split()) for _ in range(L)]
+
+dir=[(0,1),(0,-1),(1,0),(-1,0)]
+cnt,c=0,0
+change_index = 0
+Q = deque([(0,0)])
+while Q:
+  px,py = Q[0]
+  if change_index < L and cnt == int(change[change_index][0]):
+    left_or_right = change[change_index][1]
+    change_index += 1
+    if c == 0:
+      if left_or_right == 'D':
+        c = 2
+      else:
+        c = 3
+    elif c == 1:
+      if left_or_right == 'D':
+        c = 3
+      else:
+        c = 2
+    elif c == 2:
+      if left_or_right == 'D':
+        c = 1
+      else:
+        c = 0
+    else:
+      if left_or_right == 'D':
+        c = 0
+      else:
+        c = 1
+  dx = px+dir[c][0]
+  dy = py+dir[c][1]
+  if dx < 0 or dx >= N or dy < 0 or dy >= N or (dx,dy) in Q:
+    break
+  cnt += 1
+  Q.appendleft((dx,dy))
+  if graph[dx][dy] == 1:
+    graph[dx][dy] = 0
+  else:
+    Q.pop()
+print(cnt+1)
