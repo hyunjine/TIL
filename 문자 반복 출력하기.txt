@@ -1,0 +1,12 @@
+class Solution {
+    public String solution(String my_string, int n) {
+        StringBuffer answer = new StringBuffer();
+        char[] str = my_string.toCharArray();
+        for (char s: str) {
+            for (int i = 0; i < n; i++) {
+                answer.append(s);
+            }
+        }
+        return answer.toString();
+    }
+}
