@@ -1,0 +1,11 @@
+import java.util.*;
+class Solution {
+    public int[] solution(String[] strlist) {
+        List<Integer> answer = new ArrayList<Integer>();
+        for (String s: strlist) {
+            answer.add(s.length());
+        }
+        int[] test = answer.stream().mapToInt(Integer::intValue).toArray();
+        return test;
+    }
+}
