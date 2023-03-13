@@ -1,0 +1,10 @@
+class Solution {
+    public String solution(String my_string) {
+        StringBuffer answer = new StringBuffer();
+        for (char s: my_string.toCharArray()) {
+            if (Character.isLowerCase(s)) answer.append(Character.toUpperCase(s));
+            else answer.append(Character.toLowerCase(s));
+        }
+        return answer.toString();
+    }
+}
