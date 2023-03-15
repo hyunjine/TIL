@@ -1,0 +1,26 @@
+import java.util.*;
+class Solution {
+    public int solution(int n) {
+        int answer = fibo(n);
+        return answer;
+    }
+ 
+    public int fibo(int n) {
+        int[] dp = new int[n+1];
+        for (int i=1; i<=n; i++) {
+            if (i <= 2) {
+                dp[i] = i;
+                continue;
+            }
+            int t = dp[i-1]+1;
+            while (true) {                
+                if (!String.valueOf(t).contains("3") && t % 3 != 0) {
+                    break;
+                }
+                t++;
+            }
+            dp[i] = t;
+        }
+        return dp[n];
+    }
+}
