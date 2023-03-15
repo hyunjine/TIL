@@ -1,0 +1,26 @@
+import java.util.*;
+import java.util.stream.*;
+class Solution {
+    public String[] solution(String[] quiz) {
+        int l = quiz.length;
+        String[] answer = new String[l];
+        for (int i = 0; i < l; i++) {
+            String[] t = quiz[i].split(" ");
+            int t_l = t.length;
+            int t_answer = Integer.parseInt(t[t_l-1]);
+            int current = Integer.parseInt(t[0]);
+            int current_flag = 1;
+            for (int j = 1; j < t_l-2; j++) {
+                if (t[j].equals("+")) {
+                    current_flag = 1;
+                } else if (t[j].equals("-")) {
+                    current_flag = -1;
+                } else {
+                    current += Integer.parseInt(t[j])*current_flag;
+                }                
+            }
+            answer[i] = t_answer == current ? "O" : "X";
+        }        
+        return answer;
+    }
+}
