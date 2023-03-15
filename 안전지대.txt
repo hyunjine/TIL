@@ -1,0 +1,25 @@
+import java.util.*;
+class Solution {
+    public int solution(int[][] board) {
+        int n = board.length;
+        int answer = n*n;
+        int[] xDir = new int[]{1,-1,0,0,1,1,-1,-1};
+        int[] yDir = new int[]{0,0,1,-1,1,-1,1,-1};
+        Set<String> set = new HashSet<>();
+        for (int a = 0; a < n; a++) {
+            for (int b = 0; b < n; b++) {
+                if (board[a][b] == 1) {
+                    answer--;
+                    for (int i = 0; i < 8; i++) {
+                        int dx = a+xDir[i];
+                        int dy = b+yDir[i];
+                        if (dx >= 0 && dx < n && dy >= 0 && dy < n && board[dx][dy] == 0) {
+                            set.add(String.valueOf(dx)+String.valueOf(dy));
+                        }
+                    }
+                }
+            }            
+        }        
+        return answer - set.size();
+    }
+}
