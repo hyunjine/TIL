@@ -1,14 +1,26 @@
-from collections import deque
-def solution(maps):
-    n,m = len(maps),len(maps[0])
-    Q = deque([(0,0)])
-    while Q:
-        x,y = Q.popleft()
-        for dx,dy in [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]:
-            if 0<=dx<n and 0<=dy<m and maps[dx][dy] == 1:
-                maps[dx][dy] = maps[x][y]+1
-                Q.append((dx,dy))
-                if dx == n-1 and dy == m-1:
-                    return maps[dx][dy]
-    
-    return -1
+import java.util.*;
+class Solution {
+    public int solution(int[][] maps) {
+        int n = maps.length;
+        int m = maps[0].length;
+        Deque<int[]> Q = new ArrayDeque<>();
+        int[] dirX = {1,-1,0,0};
+        int[] dirY = {0,0,1,-1};
+        Q.add(new int[]{0,0});
+        while (!Q.isEmpty()) {
+            int[] point = Q.poll();
+            int x = point[0];
+            int y = point[1];
+            for (int i = 0; i < 4; i++) {
+                int dx = x+dirX[i];
+                int dy = y+dirY[i];
+                if (dx >= 0 && dx < n && dy >= 0 && dy < m && maps[dx][dy] == 1) {
+                    Q.addLast(new int[]{dx,dy});
+                    maps[dx][dy] = maps[x][y]+1;
+                    if (dx == n-1 && dy == m-1) return maps[dx][dy];
+                }
+            }
+        }
+        return -1;
+    }
+}
