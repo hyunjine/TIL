@@ -1,0 +1,43 @@
+import java.util.*;
+import java.util.stream.*;
+class Solution {
+    public String solution(String polynomial) {
+        List<String> str = Arrays.stream(polynomial.split(" "))
+                .filter(x -> !x.equals("+"))
+                .collect(Collectors.toList());
+        List<Integer> x = new ArrayList<>();
+        List<Integer> y = new ArrayList<>();
+        for (String s: str) {
+            try {
+                int n = Integer.valueOf(s);
+                y.add(n);
+            } catch (NumberFormatException e) {
+                int n = 1;
+                if (s.length() > 1) {
+                    n = Integer.parseInt(s.substring(0, s.length()-1));
+                }
+                x.add(n);
+            }
+        }
+        int sumX = x.stream().mapToInt(Integer::valueOf).sum();
+        int sumY = y.stream().mapToInt(Integer::valueOf).sum();
+        
+        String[] answer = {"", "", ""};
+        if (sumX > 0) {
+            if (sumX == 1) {
+                answer[0] = "x";
+            } else {
+                answer[0] = String.format("%dx", sumX);
+            }
+        }
+        if (sumY > 0) {
+            answer[2] = String.valueOf(sumY);
+        }
+        
+        if (answer[0].length() > 0 && answer[2].length() > 0) {
+            answer[1] = " + ";
+        }
+        
+        return Arrays.stream(answer).collect(Collectors.joining());
+    }
+}
