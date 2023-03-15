@@ -1,0 +1,14 @@
+import java.util.*;
+class Solution {
+    public int solution(String[] words) {
+        int answer = 0;
+        for (String word: words) {
+            String temp = word;
+            for (String can: new String[]{"aya", "ye", "woo", "ma"}) {
+                temp = temp.replace(can, "-");
+            }
+            if (temp.replace("-", "").isEmpty()) answer++;
+        }
+        return answer;
+    }
+}
