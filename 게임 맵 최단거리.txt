@@ -1,0 +1,14 @@
+from collections import deque
+def solution(maps):
+    n,m = len(maps),len(maps[0])
+    Q = deque([(0,0)])
+    while Q:
+        x,y = Q.popleft()
+        for dx,dy in [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]:
+            if 0<=dx<n and 0<=dy<m and maps[dx][dy] == 1:
+                maps[dx][dy] = maps[x][y]+1
+                Q.append((dx,dy))
+                if dx == n-1 and dy == m-1:
+                    return maps[dx][dy]
+    
+    return -1
