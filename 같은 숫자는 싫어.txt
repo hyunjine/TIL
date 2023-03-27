@@ -1,0 +1,9 @@
+def solution(arr):
+    answer = [arr.pop()]
+    while arr:
+        v = arr.pop()
+        if v != answer[-1]: answer.append(v)
+    
+    # [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+    
+    return answer[::-1]
