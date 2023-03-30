@@ -1,17 +1,24 @@
-N = int(input())
-A = sorted(list(map(int, input().split())))
-M = int(input())
-arr = list(map(int, input().split()))
-for a in arr:
-  start, end = 0, N-1
-  isFind = False
-  while end-start > 1:
-    aim = (start+end) // 2
-    if a in [A[start],A[end],A[aim]]:
-      isFind = True
-      break
-    elif a < A[aim]:
-      end = aim
-    else:
-      start = aim
-  print(int(isFind))
+def solution(genres, plays):
+    answer = []    
+    total = {}
+    info = {}
+    for i in range(len(genres)):
+        key = genres[i]
+        if info.get(key) == None:
+            total[key] = plays[i]
+            info[key] = [[plays[i],i]]
+        else:
+            total[key] += plays[i]
+            info[key].append([plays[i],i])
+            
+    A = sorted([[j,i] for i,j in total.items()], reverse=True)
+    for i in info.values():
+        i.sort(key=lambda x: (-x[0], x[1]))
+    for a in A:
+        key = a[1]
+        length = min(2, len(info[key]))
+        for i in range(length):
+            answer.append(info[key][i][1])
+            
+    
+    return answer
