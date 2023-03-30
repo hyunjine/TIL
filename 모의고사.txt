@@ -1,0 +1,23 @@
+def solution(answers):
+    A = (1, 2, 3, 4, 5)
+    B = (2, 1, 2, 3, 2, 4, 2, 5)
+    C = (3, 3, 1, 1, 2, 2, 4, 4, 5, 5)
+    infos = [
+        [1, A, len(A), 0],
+        [2, B, len(B), 0],
+        [3, C, len(C), 0]
+    ]
+    name, check, length, count = 0, 1, 2, 3
+    
+    for i in range(len(answers)):
+        for info in infos:
+            if answers[i] == info[check][i%info[length]]:
+                info[count] += 1    
+    answer = {}
+    for info in infos:
+        if answer.get(info[count]) == None:
+            answer[info[count]] = [info[name]]
+        else:
+            answer[info[count]] += [info[name]]
+
+    return sorted(answer.items(), key = lambda x: (-x[0], x[1]))[0][1]
