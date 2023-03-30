@@ -1,4 +1,0 @@
-def solution(border, center):
-    area = border + center
-    arr = [(area//n, n) for n in range(1, int(area**0.5)+1) if area%n == 0]
-    return [[x,y] for x,y in arr if ((x-1)*2)+((y-1)*2) == border][0]
