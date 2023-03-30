@@ -1,0 +1,34 @@
+from collections import deque
+def bfs(tree):
+    answer = []
+    visit = [False]*len(tree)
+    for i in range(1, len(tree)):
+        Q = deque([i])
+        is_visit = visit[i]
+        visit[i] = True
+        cnt = 1
+        while Q:
+            for t in tree[Q.popleft()]:
+                if not visit[t]:
+                    cnt += 1
+                    visit[t] = True
+                    Q.append(t)
+        if not is_visit:
+            answer.append(cnt)
+    return abs(answer[0]-answer[1])
+        
+def solution(n, wires):
+    tree = [set() for _ in range(n+1)]
+    for wire in wires:
+        tree[wire[0]].add(wire[1])
+        tree[wire[1]].add(wire[0])
+    answer = []
+    for wire in wires:
+        x = wire[0]
+        y = wire[1]
+        tree[x].remove(y)
+        tree[y].remove(x)
+        answer.append(bfs(tree))
+        tree[x].add(y)
+        tree[y].add(x)
+    return min(answer)
