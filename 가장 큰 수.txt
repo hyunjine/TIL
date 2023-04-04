@@ -1,0 +1,9 @@
+def solution(numbers):
+    numbers = list(map(str, numbers))
+    answer = [((num * 4)[:4], num) for num in numbers]
+    answer.sort(reverse=True)
+    
+    return str(int(''.join([num[1] for num in answer])))
+    
+    
+    
