@@ -1,0 +1,18 @@
+from heapq import heappush, heappop
+
+def solution(operations):
+    answer, heap= [0,0], []
+    for operation in operations:
+        if operation == "D 1":
+            temp = []
+            for i in range(len(heap)-1):
+                heappush(temp, heappop(heap))
+            heap = temp
+        elif operation == "D -1":
+            if heap: heappop(heap)
+        else:
+            heappush(heap, int(operation[2:]))    
+    
+    if heap: answer = [max(heap), min(heap)]
+    
+    return answer
