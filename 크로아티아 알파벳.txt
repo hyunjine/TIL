@@ -1,0 +1,8 @@
+word = input()
+answer = 0
+alphabet_list = ['c=','c-','dz=','d-','lj','nj','s=','z=']
+for alph in alphabet_list:
+  answer += word.count(alph)
+  word = word.replace(alph, ' ')
+word = word.replace(' ', '')
+print(answer+len(word))
