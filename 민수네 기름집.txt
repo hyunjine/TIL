@@ -1,13 +1,38 @@
-N, K = map(int, input().split())
-arr = [i for i in range(N+1)]
-def solution(N,K,arr):
-  cnt = 0
-  for a in range(2, N+1):
-    for b in range(a, N+1, a):
-      if arr[b] != 0:
-        cnt += 1
-        if cnt == K:
-          return arr[b]
-        arr[b] = 0
-
-print(solution(N,K,arr))
+def solution(word):
+  stack = []
+  last = ""
+  for w in word:
+    for s in stack[::-1]:
+      if not s.isdigit(): 
+        last = s
+        break
+    stack.append(w)
+    if w == "(" or w == "[":
+      last = w
+    elif last == "(" and w == ")":
+      v = 0
+      while stack and stack[-1] != "(":
+        t = stack.pop()
+        if t.isdigit(): v += int(t)
+      if stack: stack.pop()
+      v = v*2 if v != 0 else 2
+      stack.append(str(v))
+      last = ""
+    elif last == "[" and w == "]":
+      v = 0
+      while stack and stack[-1] != "[":
+        t = stack.pop()
+        if t.isdigit(): v += int(t)
+      if stack: stack.pop()
+      v = v*3 if v != 0 else 3
+      stack.append(str(v))
+      last = ""
+  return stack
+arr = solution(input())
+try:
+  answer = 0
+  for a in arr:
+    answer += int(a)
+  print(answer)
+except:
+  print(0)
