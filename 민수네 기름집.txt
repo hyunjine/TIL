@@ -1,0 +1,13 @@
+N, K = map(int, input().split())
+arr = [i for i in range(N+1)]
+def solution(N,K,arr):
+  cnt = 0
+  for a in range(2, N+1):
+    for b in range(a, N+1, a):
+      if arr[b] != 0:
+        cnt += 1
+        if cnt == K:
+          return arr[b]
+        arr[b] = 0
+
+print(solution(N,K,arr))
