@@ -1,4 +1,0 @@
-N=input()
-L,A=len(N),0
-for n in range(1,L):A+=9*(10**(n-1))*n
-print(A+(int(N)-(10**(L-1))+1)*L)
