@@ -1,0 +1,26 @@
+from itertools import combinations
+N,M = map(int, input().split())
+graph = [list(map(int, input().split())) for _ in range(N)]
+home = set()
+store = set()
+for x in range(N):
+  for y in range(N):
+    if graph[x][y] == 1:
+      home.add((x,y))
+    elif graph[x][y] == 2:
+      store.add((x,y))
+    else:
+      continue
+points = [point for point in combinations(store, M)]
+answer = []
+for point in points:
+  part_answer = []
+  for hx,hy in home:
+    Min = int(1e9)
+    for px,py in point:
+      temp = abs(px-hx)+abs(py-hy)
+      Min = min(Min, temp)
+    part_answer.append(Min)
+  answer.append(sum(part_answer))
+
+print(min(answer))
