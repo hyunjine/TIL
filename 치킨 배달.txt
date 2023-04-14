@@ -1,0 +1,25 @@
+from collections import deque
+Gears = [deque(list(map(int, input()))) for _ in ' '*4]
+processes = [list(map(int, input().split())) for _ in ' '*int(input())]
+
+def rotation(idx, dir,all,right,left):
+  three, nine = Gears[idx][2],Gears[idx][6]
+  if dir == 1:
+    last = Gears[idx].pop()
+    Gears[idx].appendleft(last)
+
+  else:
+    first = Gears[idx].popleft()
+    Gears[idx].append(first)    
+  if idx+1 <= 3 and (all or right):
+    if three != Gears[idx+1][6]:
+      rotation(idx+1, -dir,False,True,False)
+  if idx-1 >= 0 and (all or left):
+    if nine != Gears[idx-1][2]:
+      rotation(idx-1, -dir,False,False,True)
+
+for idx, dir in processes:
+  rotation(idx-1,dir,True,False,False)
+
+answer = sum([gear[0]*(2**i) for i,gear in enumerate(Gears)])
+print(answer)
