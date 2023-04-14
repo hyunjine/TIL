@@ -1,0 +1,14 @@
+Aword,Bword = input(),input()
+Alen,Blen = len(Aword)+1,len(Bword)+1
+Aword = " "+Aword
+Bword = " "+Bword
+dp = [[0]*(Alen) for _ in range(Blen)]
+
+for b in range(1,Blen):
+  for a in range(1,Alen):
+    if Aword[a] == Bword[b]:
+      dp[b][a] = dp[b-1][a-1]+1
+    else:
+      dp[b][a] = max(dp[b-1][a],dp[b][a-1])
+
+print(dp[Blen-1][Alen-1])
