@@ -1,0 +1,21 @@
+import sys
+from collections import deque
+rl = sys.stdin.readline
+answer = []
+def solution(queue, funcs):
+  cnt = 0
+  for func in funcs:
+    if func == 'R': cnt += 1
+    else:
+      if not queue: return False
+      if cnt % 2 == 1: queue.pop()
+      else: queue.popleft()
+  if cnt % 2 == 1: queue.reverse()
+  return '[' + ','.join(queue) + ']'
+      
+for _ in range(int(rl())):
+  funcs,N,arr = rl().rstrip(),int(rl()),rl().rstrip()
+  queue = deque(arr[1:-1].split(",")) if N >= 1 else deque()
+  result = solution(queue, funcs)
+  answer.append(result if result else "error")
+print('\n'.join(answer))
