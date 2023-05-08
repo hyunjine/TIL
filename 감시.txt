@@ -1,103 +1,22 @@
-N,M = map(int, input().split())
-MAP = [list(map(int, input().split())) for _ in range(N)]
+import sys
+rl = sys.stdin.readline
 
-def up(x,y):
-  result = [(x,y)]
-  while x-1 >= 0 and MAP[x-1][y] != 6:
-    result.append((x-1,y))
-    x -= 1
-  return result
+words = [rl().rstrip() for _ in range(int(rl()))]
+answer = 0
 
-def down(x,y):
-  result = [(x,y)]
-  while x+1 < N and MAP[x+1][y] != 6:
-    result.append((x+1,y))
-    x += 1
-  return result
-
-def right(x,y):
-  result = [(x,y)]
-  while y+1 < M and MAP[x][y+1] != 6:
-    result.append((x,y+1))
-    y += 1
-  return result
-
-def left(x,y):
-  result = [(x,y)]
-  while y-1 >= 0 and MAP[x][y-1] != 6:
-    result.append((x,y-1))
-    y -= 1
-  return result
-
-total = N*M
-result = []
-for n in range(N):
-  for m in range(M):
-    part = []
-    if MAP[n][m] == 1:
-      part.append(up(n,m))
-      part.append(down(n,m))
-      part.append(right(n,m))
-      part.append(left(n,m))
-      if result:
-        temp = []
-        for r in result:
-          for p in part:
-            temp.append(r+p)
-        result = temp
+def func(word):
+  dic = {}
+  for i in range(len(word)-1):
+    if word[i] != word[i+1]:
+      if dic.get(word[i]) == None:
+        dic[word[i]] = 1
       else:
-        result = part
-    elif MAP[n][m] == 2:
-      part.append(up(n,m)+down(n,m))
-      part.append(right(n,m)+left(n,m))
-      if result:
-        temp = []
-        for r in result:
-          for p in part:
-            temp.append(r+p)
-        result = temp
-      else:
-        result = part
-    elif MAP[n][m] == 3:
-      part.append(up(n,m)+right(n,m))
-      part.append(right(n,m)+down(n,m))
-      part.append(down(n,m)+left(n,m))
-      part.append(left(n,m)+up(n,m))
-      if result:
-        temp = []
-        for r in result:
-          for p in part:
-            temp.append(r+p)
-        result = temp
-      else:
-        result = part
-    elif MAP[n][m] == 4:
-      part.append(up(n,m)+right(n,m)+left(n,m))
-      part.append(up(n,m)+right(n,m)+down(n,m))
-      part.append(left(n,m)+right(n,m)+down(n,m))
-      part.append(left(n,m)+up(n,m)+down(n,m))
-      if result:
-        temp = []
-        for r in result:
-          for p in part:
-            temp.append(r+p)
-        result = temp
-      else:
-        result = part
-    elif MAP[n][m] == 5:
-      part.append(up(n,m)+down(n,m)+right(n,m)+left(n,m))
-      if result:
-        temp = []
-        for r in result:
-          for p in part:
-            temp.append(r+p)
-        result = temp
-      else:
-        result = part
-    elif MAP[n][m] == 6:
-      total -= 1
+        return False
+  if dic.get(word[-1]) != None:
+    return False
+  return True
 
-if not result:
-  print(total)
-else:
-  print(min([total-len(set(r)) for r in result]))
+for word in words:
+  if func(word):
+    answer += 1
+print(answer)
